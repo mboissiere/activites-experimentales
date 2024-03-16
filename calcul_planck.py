@@ -30,34 +30,45 @@ df['difference'] = df['theoretical_luminous_intensity'] - df['luminous_intensity
 sample_wavelengths = np.linspace(min_wavelength, max_wavelength, num=num_wavelengths)
 sample_theoretical_luminous_intensity = (2 * h * c**2) / (sample_wavelengths**5 * (np.exp((h * c) / (sample_wavelengths * kB * T)) - 1))
 
-# Create a figure with subplots
-fig, axs = plt.subplots(3, 1, figsize=(8, 12))
+# Create the first window with separate graphs for theoretical and measured intensity
+fig1, axs1 = plt.subplots(2, 1, figsize=(8, 8))
 
-# Plot the theoretical luminous intensity over the sample wavelengths
-axs[0].plot(sample_wavelengths, sample_theoretical_luminous_intensity, label='Theoretical')
-axs[0].set_xlabel('Wavelength (m)')
-axs[0].set_ylabel('Luminous Intensity (arb. unit)')
-axs[0].set_title('Theoretical Luminous Intensity')
-axs[0].legend()
+# Plot the theoretical luminous intensity
+axs1[0].plot(sample_wavelengths, sample_theoretical_luminous_intensity, label='Theoretical')
+axs1[0].set_xlabel('Wavelength (m)')
+axs1[0].set_ylabel('Luminous Intensity (arb. unit)')
+axs1[0].set_title('Theoretical Luminous Intensity')
+axs1[0].legend()
 
 # Plot the measured luminous intensity
-axs[1].plot(df['wavelength (m)'], df['luminous_intensity (arb. unit)'], label='Measured')
-axs[1].set_xlabel('Wavelength (m)')
-axs[1].set_ylabel('Luminous Intensity (arb. unit)')
-axs[1].set_title('Measured Luminous Intensity')
-axs[1].legend()
+axs1[1].plot(df['wavelength (m)'], df['luminous_intensity (arb. unit)'], label='Measured', color='orange')
+axs1[1].set_xlabel('Wavelength (m)')
+axs1[1].set_ylabel('Luminous Intensity (arb. unit)')
+axs1[1].set_title('Measured Luminous Intensity')
+axs1[1].legend()
+
+# Create the second window with one plot for both theoretical and measured intensity, and one plot for the difference
+fig2, axs2 = plt.subplots(2, 1, figsize=(8, 8))
+
+# Plot both theoretical and measured luminous intensity on the same graph
+axs2[0].plot(sample_wavelengths, sample_theoretical_luminous_intensity, label='Theoretical')
+axs2[0].plot(df['wavelength (m)'], df['luminous_intensity (arb. unit)'], label='Measured')
+axs2[0].set_xlabel('Wavelength (m)')
+axs2[0].set_ylabel('Luminous Intensity (arb. unit)')
+axs2[0].set_title('Theoretical vs Measured Luminous Intensity')
+axs2[0].legend()
 
 # Plot the difference between theoretical and measured luminous intensity
-axs[2].plot(df['wavelength (m)'], df['difference'], label='Difference')
-axs[2].set_xlabel('Wavelength (m)')
-axs[2].set_ylabel('Difference (arb. unit)')
-axs[2].set_title('Difference between Theoretical and Measured Luminous Intensity')
-axs[2].legend()
+axs2[1].plot(df['wavelength (m)'], df['difference'], label='Difference', color='green')
+axs2[1].set_xlabel('Wavelength (m)')
+axs2[1].set_ylabel('Difference (arb. unit)')
+axs2[1].set_title('Difference between Theoretical and Measured Luminous Intensity')
+axs2[1].legend()
 
-# Adjust the spacing between subplots
+# Adjust the spacing between subplots in both windows
 plt.tight_layout()
 
-# Show the plot
+# Show both plots
 plt.show()
 
 # Print the DataFrame
