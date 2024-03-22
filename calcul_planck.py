@@ -15,7 +15,7 @@ T = 1425.25  # Temperature in K
 # TODO : Read a CSV that has temperature for every current
 
 # Read the file into a DataFrame
-df = pd.read_csv('data/Courant701mA.txt', sep=';', names=['wavelength (nm)', 'luminous_intensity (arb. unit)'])
+df = pd.read_csv('data/Courant701mA_test.txt', sep=';', names=['wavelength (nm)', 'luminous_intensity (arb. unit)'])
 
 # Convert wavelength to meters
 df['wavelength (m)'] = df['wavelength (nm)'] * 1e-9  # Assuming wavelength is in nanometers, convert to meters
@@ -73,3 +73,6 @@ plt.show()
 
 # Print the DataFrame
 print(df)
+
+# Rappel : on a 3 jeux de données pour chaque truc, on peut peut-être moyenner
+# Peut-être justement en montrant plot de 701 dire : ouais c'est pas ouf pour fit, ça rend mieux plus tard.
